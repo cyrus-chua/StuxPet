@@ -1,4 +1,21 @@
-html,body{
-	margin : 0;
-	padding : 0;
+@font-face {
+	font-family: hermit;
+	src: url('../font/hermit.otf')
+}
+
+html,body {
+	margin: 0;
+	padding: 0;
+}
+
+#wallpaper {
+	border: 0px solid #00ff00;
+}
+
+#splash {
+	font-family: hermit;
+	font-size: 50px;
+	position: absolute;
+	width: 360px;
+	z-index: 1000;
 }
