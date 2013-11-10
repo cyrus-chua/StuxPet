@@ -11,15 +11,18 @@ function onDeviceReady() {
 		window.localStorage.setItem("numOpen", 1);
 	else
 		window.localStorage.setItem("numOpen", Number(numOpen) + 1);
-	// TODO: Check pet status
-	initDB();
+
+	$('#bars').children().removeAttr('style');
 	checkPetStatus();
 	setup();
 	// TODO: Open Database (Places Visited, People Met)
 }
 
 function checkPetStatus() {
-	
+	initDB();
+	$('.life'+stats.health).css('background','none');
+	$('.hunger'+stats.hunger).css('background','none');
+	$('.happy'+stats.happy).css('background','none');
 }
 
 function setup() {

@@ -15,6 +15,7 @@ public class StuxPetDBHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_NAME_FITNESS = "fitness";
 	public static final String COLUMN_NAME_INTEL = "intel";
 	public static final String COLUMN_NAME_STEPS = "steps";
+	public static final String COLUMN_NAME_SHIT = "shit";
 	
 	private static final String SQL_CREATE = "CREATE TABLE " + TABLE_NAME
 			+ " (" + COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -25,6 +26,7 @@ public class StuxPetDBHelper extends SQLiteOpenHelper {
 			+ COLUMN_NAME_BIRTHDAY + " INTEGER NOT NULL,"
 			+ COLUMN_NAME_FITNESS + " INTEGER DEFAULT 0,"
 			+ COLUMN_NAME_INTEL + " INTEGER DEFAULT 0,"
+			+ COLUMN_NAME_SHIT + " INTEGER DEFAULT 0,"
 			+ COLUMN_NAME_STEPS + " INTEGER DEFAULT 0);";
 
 	private static final String SQL_DELETE = "DROP TABLE IF EXISTS "

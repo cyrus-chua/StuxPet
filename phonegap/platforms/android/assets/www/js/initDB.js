@@ -1,18 +1,17 @@
-var db, stats={health:5,hunger:5,happy:5};
+var db, stats={health:0,hunger:0,happy:0,fitness:0,intel:0};
 function initDB(){
 	var db = window.sqlitePlugin.openDatabase({name:'stuxpair'});
 	
 	db.transaction(queryDB, onQueryError);
+	
 	
 	function queryDB(tx) {
         tx.executeSql('SELECT * FROM stuxpet;', [], querySuccess, onQueryError);
     }
 	
 	function querySuccess(tx, results){
-		console.log("Num rows(1):"+results.rows.length);
-		for (var j = 0; j<results.rows.length;j++){
-			console.log("row"+j+":"+results.rows.item(j));
-		}
+		stats=results.rows.item(0);
+		console.log("stats:"+stats.health);
 	}
 
 	function onQueryError(error){

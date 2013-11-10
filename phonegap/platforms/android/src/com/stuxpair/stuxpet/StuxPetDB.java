@@ -1,7 +1,7 @@
 package com.stuxpair.stuxpet;
 
-import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -50,15 +50,23 @@ public class StuxPetDB {
 
 	// --- retrieves pets stats --
 	public Cursor getStats() {
-		return db.query(StuxPetDBHelper.TABLE_NAME, null, null, null, null, null,
-				null);
+		return db.query(StuxPetDBHelper.TABLE_NAME, null, null, null, null,
+				null, null);
 	}
-	
-	public void getStatsJSON(){
+
+	public JSONObject getStatsJSON() {
 		Cursor c = getStats();
-		c.moveToFirst();
-		Log.i("index", c.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HUNGER)+"");
-		Log.i("stuff", c.getInt(c.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HUNGER))+"");
+		JSONObject obj = new JSONObject();
+		if (c.moveToFirst()) {
+			for (int i = 0; i < c.getColumnCount(); i++) {
+				try {
+					obj.put(c.getColumnName(i), c.getString(i));
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return obj;
 	}
 
 	// --- delete a particular contact ---
@@ -72,24 +80,34 @@ public class StuxPetDB {
 			int health, int happiness) {
 
 		Cursor c = getStats();
-		
-		ContentValues initialValues = new ContentValues();
-		if (!species.isEmpty())
-			initialValues.put(StuxPetDBHelper.COLUMN_NAME_SPECIES, species);
-		
-		hunger = c.getInt(c.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HUNGER)) + hunger;
-		if (hunger < 0) hunger = 0;
-		
-		health = c.getInt(c.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HEALTH)) + health;
-		if (health < 0) health = 0;
-		
-		happiness = c.getInt(c.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HAPPY)) + happiness;
-		if (happiness < 0) happiness = 0;
-			
-		initialValues.put(StuxPetDBHelper.COLUMN_NAME_HUNGER, hunger);
-		initialValues.put(StuxPetDBHelper.COLUMN_NAME_HEALTH, hunger);
-		initialValues.put(StuxPetDBHelper.COLUMN_NAME_HAPPY, hunger);
 
-		return db.update(StuxPetDBHelper.TABLE_NAME, initialValues,null,null) > 0;
+		ContentValues initialValues = new ContentValues();
+		if (c.moveToFirst()) {
+			if (!species.isEmpty())
+				initialValues.put(StuxPetDBHelper.COLUMN_NAME_SPECIES, species);
+
+			hunger = c.getInt(c
+					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HUNGER))
+					+ hunger;
+			if (hunger < 0)
+				hunger = 0;
+
+			health = c.getInt(c
+					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HEALTH))
+					+ health;
+			if (health < 0)
+				health = 0;
+
+			happiness = c.getInt(c
+					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HAPPY))
+					+ happiness;
+			if (happiness < 0)
+				happiness = 0;
+
+			initialValues.put(StuxPetDBHelper.COLUMN_NAME_HUNGER, hunger);
+			initialValues.put(StuxPetDBHelper.COLUMN_NAME_HEALTH, health);
+			initialValues.put(StuxPetDBHelper.COLUMN_NAME_HAPPY, happiness);
+		}
+		return db.update(StuxPetDBHelper.TABLE_NAME, initialValues, null, null) > 0;
 	}
 }
