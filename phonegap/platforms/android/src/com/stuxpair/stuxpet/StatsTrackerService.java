@@ -29,7 +29,7 @@ public class StatsTrackerService extends IntentService {
 		while (System.currentTimeMillis() < endTime) {
 			synchronized (this) {
 				try {
-					wait(endTime - System.currentTimeMillis());
+					
 				} catch (Exception e) {
 				}
 			}

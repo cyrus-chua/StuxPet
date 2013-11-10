@@ -1,23 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>StuxPet</title>
+<script>console.log(document.title);</script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no">
 <link rel="stylesheet" type="text/css" href="css/setup.css" />
+<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/initDB.js"></script>
+<script src="js/setup.js"></script>
 </head>
-<body>
-	<!--<canvas id="wallpaper"></canvas> 
-	<div id="splash">Loading</div> -->
-	<div id="doors">
-         <div id="home" class="door"></div>
-         <div id="stats" class="door"></div>
-         <div id="kitchen" class="door"></div>
-         <div id="playroom" class="door"></div>
-         <div id="toilet" class="door"></div>
-         <div id="sickbay" class="door"></div>
-         <div id="stuxnet" class="door"></div>
+<body onload="onLoad()">
+	<!-- <div id="load">Loading</div> -->
+	<div id='live-stats'>
+		health:<br />hunger:<br />happiness:
 	</div>
-	<script src="js/setup.js"></script>
+	<div id='bars'>
+		<div class="life0"></div>
+		<div class="life0 life1"></div>
+		<div class="life0 life1 life2"></div>
+		<div class="life0 life1 life2 life3"></div>
+		<div class="life0 life1 life2 life3 life4"></div>
+		<br />		
+		<div class="hunger0"></div>
+		<div class="hunger0 hunger1"></div>
+		<div class="hunger0 hunger1 hunger2"></div>
+		<div class="hunger0 hunger1 hunger2 hunger3"></div>
+		<div class="hunger0 hunger1 hunger2 hunger3 hunger4"></div>
+		<br />
+		<div class="happy0"></div>
+		<div class="happy0 happy1"></div>
+		<div class="happy0 happy1 happy2"></div>
+		<div class="happy0 happy1 happy2 happy3"></div>
+		<div class="happy0 happy1 happy2 happy3 happy4"></div>
+	</div>
+	<div id="doors">
+		<div id="door0" class="door"></div>
+		<div id="door1" class="door"></div>
+		<div id="door2" class="door"></div>
+		<div id="door3" class="door"></div>
+		<div id="door4" class="door"></div>
+		<div id="door5" class="door"></div>
+		<div id="door6" class="door"></div>
+		<div id="home1" class="door"></div>
+		<div id="home2" class="door"></div>
+		<div id="home3" class="door"></div>
+		<div id="stats1" class="door"></div>
+		<div id="stats2" class="door"></div>
+		<div id="stats3" class="door"></div>
+		<div id="kitchen1" class="door"></div>
+		<div id="kitchen2" class="door"></div>
+		<div id="kitchen3" class="door"></div>
+		<div id="play1" class="door"></div>
+		<div id="play2" class="door"></div>
+		<div id="play3" class="door"></div>
+	</div>
 </body>
 </html>
