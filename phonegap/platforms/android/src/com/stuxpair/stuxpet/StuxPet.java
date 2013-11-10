@@ -23,9 +23,12 @@ import java.util.Calendar;
 
 import org.apache.cordova.Config;
 import org.apache.cordova.DroidGap;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 public class StuxPet extends DroidGap {
 	StuxPetDB petData;
@@ -48,13 +51,15 @@ public class StuxPet extends DroidGap {
 	public void checkPet(){
 		petData.open();
     	if (petData.hasPet()){
-    		
+    		Log.i("stuxpet.java","has pet");
+    		petData.getStatsJSON();
     	} else {
     		setNames();
     		SharedPreferences species_names = getSharedPreferences("names", 0);
     		String names[] = species_names.getString("baby", "null").split(",");
     		petData.insertPet(names[(int) (Math.random() * names.length)], Calendar.getInstance().getTimeInMillis());
     	}
+    	petData.close();
     }
 	
 	public void setNames(){

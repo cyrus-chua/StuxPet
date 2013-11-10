@@ -105,15 +105,16 @@ body {
 .life3 {background : #0000D0;}
 .life4 {background : #0000E0;}
 
-#hunger1 {background : #00A000;}
-#hunger2 {background : #00B000;}
-#hunger3 {background : #00C000;}
-#hunger4 {background : #00D000;}
-#hunger5 {background : #00E000;}
+.hunger0 {background : #00A000;}
+.hunger1 {background : #00B000;}
+.hunger2 {background : #00C000;}
+.hunger3 {background : #00D000;}
+.hunger4 {background : #00E000;}
 
-#happy1 {background : #A00000;}
-#happy2 {background : #B00000;}
-#happy3 {background : #C00000;}
-#happy4 {background : #D00000;}
-#happy5 {background : #E00000;}
+.happy0 {background : #A00000;}
+.happy1 {background : #B00000;}
+.happy2 {background : #C00000;}
+.happy3 {background : #D00000;}
+.happy4 {background : #E00000;}
+
 

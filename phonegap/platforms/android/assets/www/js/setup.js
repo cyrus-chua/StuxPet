@@ -3,7 +3,7 @@ function onLoad() {
 }
 
 function onDeviceReady() {
-	console.log('ready running ver'+device.version);
+	console.log('ready running ver');
 	navigator.splashscreen.hide();
 	var numOpen = window.localStorage.getItem("numOpen");
 	console.log("Opened for the " + numOpen + "st/nd/rd/th time. (:");

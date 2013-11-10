@@ -1,10 +1,14 @@
 package com.stuxpair.stuxpet;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class StuxPetDB {
 
@@ -33,7 +37,7 @@ public class StuxPetDB {
 				StuxPetDBHelper.COLUMN_NAME_ID,
 				StuxPetDBHelper.COLUMN_NAME_SPECIES }, null, null, null, null,
 				null);
-		return c != null;
+		return c.getCount() != 0;
 	}
 
 	// --- insert a pet into the database ---
@@ -46,15 +50,15 @@ public class StuxPetDB {
 
 	// --- retrieves pets stats --
 	public Cursor getStats() {
-		return db.query(StuxPetDBHelper.TABLE_NAME, new String[] {
-				StuxPetDBHelper.COLUMN_NAME_SPECIES,
-				StuxPetDBHelper.COLUMN_NAME_ID,
-				StuxPetDBHelper.COLUMN_NAME_HEALTH,
-				StuxPetDBHelper.COLUMN_NAME_HUNGER,
-				StuxPetDBHelper.COLUMN_NAME_HAPPY,
-				StuxPetDBHelper.COLUMN_NAME_FITNESS,
-				StuxPetDBHelper.COLUMN_NAME_INTEL }, null, null, null, null,
+		return db.query(StuxPetDBHelper.TABLE_NAME, null, null, null, null, null,
 				null);
+	}
+	
+	public void getStatsJSON(){
+		Cursor c = getStats();
+		c.moveToFirst();
+		Log.i("index", c.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HUNGER)+"");
+		Log.i("stuff", c.getInt(c.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HUNGER))+"");
 	}
 
 	// --- delete a particular contact ---

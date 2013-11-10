@@ -1,6 +1,7 @@
+var currentRoom;
 function onLoad(){
 	document.addEventListener('deviceready', onDeviceReady, false);
-	var currentRoom = {
+	currentRoom = {
 			title : document.title,
 			num : document.location.href.split('room')[1].charAt(0)
 	}
