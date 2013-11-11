@@ -37,29 +37,26 @@ public class StuxPet extends DroidGap {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		petData = new StuxPetDB(this);
+		checkPet();
 		super.setIntegerProperty("splashscreen", R.drawable.splash);
 		// Set by <content src="index.html" /> in config.xml
 		super.loadUrl(Config.getStartUrl(), 10000);
 		super.setIntegerProperty("splashscreen", R.drawable.splash2);
-		petData = new StuxPetDB(this);
-		checkPet();
 	}
 
 	public void checkPet() {
 		petData.open();
-		petData.deletePet((long)1);
 		if (!petData.hasPet()) {
 			setNames();
 			SharedPreferences species_names = getSharedPreferences("names", 0);
 			String names[] = species_names.getString("baby", "null").split(",");
 			petData.insertPet(names[(int) (Math.random() * names.length)],
 					Calendar.getInstance().getTimeInMillis());
-			
 		}
-
+		Log.i("stuxpet", "stats:"+petData.getStatsJSON());
 		Intent intent = new Intent(this, StatsTrackerService.class);
 		startService(intent);
-		Log.i("stuxpet", petData.getStatsJSON() + "");
 		petData.close();
 	}
 

@@ -1,10 +1,9 @@
-$('#door2').eq(0).ready(function(){
+function onLoad() {
+	document.addEventListener('deviceready', onDeviceReady, false);
+	$('#door2').eq(0).ready(function(){
 		navigator.splashscreen.hide();
 		console.log('loaded2');
 	});
-
-function onLoad() {
-	document.addEventListener('deviceready', onDeviceReady, false);
 }
 
 function onDeviceReady() {
@@ -26,7 +25,7 @@ function checkPetStatus() {
 	initDB();
 	$('.life'+stats.health).css('background','none');
 	$('.hunger'+stats.hunger).css('background','none');
-	$('.happy'+stats.happy).css('background','none');
+	$('.happy'+stats.happiness).css('background','none');
 }
 
 function setup() {

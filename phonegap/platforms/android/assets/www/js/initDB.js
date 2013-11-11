@@ -1,4 +1,4 @@
-var db, stats={health:0,hunger:0,happy:0,fitness:0,intel:0};
+var db, stats={health:0,hunger:0,happiness:0,fitness:0,intel:0};
 function initDB(){
 	var db = window.sqlitePlugin.openDatabase({name:'stuxpair'});
 	

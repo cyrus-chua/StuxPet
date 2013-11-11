@@ -13,8 +13,8 @@ public class StatsTrackerService extends IntentService {
 
 	private int stepsTaken = 0;
 	private StuxPetDB petData = new StuxPetDB(this);
-	public final static int MINUS_HEALTH = 1;
-	public final static int MINUS_HUNGER = 2;
+	public final static int MINUS_HUNGER = 1;
+	public final static int MINUS_HEALTH = 2;
 	public final static int MINUS_HAPPY = 3;
 
 	/**
@@ -35,23 +35,25 @@ public class StatsTrackerService extends IntentService {
 		// Normally we would do some work here, like download a file.
 		// For our sample, we just sleep for 5 seconds.
 		petData.open();
-		Bundle extras = intent.getExtras();
-		if (extras != null)
+		if (intent.getExtras() != null) {
+			Bundle extras = intent.getExtras();
 			switch (extras.getInt("action")) {
-			case MINUS_HEALTH:
-				petData.updateStats("", 0, -1, 0);
-				handleHealth();
-				break;
 			case MINUS_HUNGER:
 				petData.updateStats("", -2, 0, 0);
 				handleHunger();
 				break;
+			case MINUS_HEALTH:
+				Log.i("statsTracker", "minus_health");
+				petData.updateStats("", 0, -1, 0);
+				handleHealth();
+				break;
 			case MINUS_HAPPY:
+				Log.i("statsTracker", "minus_happy");
 				petData.updateStats("", 0, 0, -1);
 				handleHappy();
 				break;
 			}
-		else {
+		} else {
 			handleHealth();
 			handleHunger();
 			handleHappy();
@@ -71,21 +73,8 @@ public class StatsTrackerService extends IntentService {
 		this.stepsTaken = stepsTaken;
 	}
 
-	public void handleHealth() {
-		Intent health = new Intent(this, StatsTrackerService.class);
-		health.putExtra("action", MINUS_HEALTH);
-		PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, health,
-				0);
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(System.currentTimeMillis());
-		// Time to add alarm
-		calendar.add(Calendar.HOUR_OF_DAY, 2);
-		setAlarm(pendingIntent, calendar.getTimeInMillis());
-	}
-
 	public void handleHunger() {
 		Calendar calendar = Calendar.getInstance();
-		Log.i("alarms", "currentTime:"+calendar.getTime().toString());
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
 		if (hour < 9)
 			calendar.set(Calendar.HOUR_OF_DAY, 9);
@@ -97,36 +86,44 @@ public class StatsTrackerService extends IntentService {
 			calendar.add(Calendar.DATE, 1);
 			calendar.set(Calendar.HOUR_OF_DAY, 9);
 		}
-
-		calendar.set(Calendar.HOUR_OF_DAY, 14);
-		calendar.set(Calendar.MINUTE, 11);
-
-		Intent hunger = new Intent(this, StatsTrackerService.class);
+		
+		calendar.set(Calendar.MINUTE, 1);
+		
+		Intent hunger = new Intent(this, StatsReceiver.class);
 		hunger.putExtra("action", MINUS_HUNGER);
-		PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, hunger,
-				0);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
+				hunger, PendingIntent.FLAG_UPDATE_CURRENT);
 		setAlarm(pendingIntent, calendar.getTimeInMillis());
 	}
 
-	public void handleHappy() {
-		Intent happy = new Intent(this, StatsTrackerService.class);
-		happy.putExtra("action", MINUS_HAPPY);
-		PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
-				happy, 0);
+	public void handleHealth() {
+		Intent health = new Intent(this, StatsReceiver.class);
+		health.putExtra("action", MINUS_HEALTH);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1,
+				health, PendingIntent.FLAG_UPDATE_CURRENT);
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		// Time to add alarm
 		calendar.add(Calendar.HOUR_OF_DAY, 2);
 
-		calendar.set(Calendar.HOUR_OF_DAY, 14);
-		calendar.set(Calendar.MINUTE, 25);
+		setAlarm(pendingIntent, calendar.getTimeInMillis());
+	}
+
+	public void handleHappy() {
+		Intent happy = new Intent(this, StatsReceiver.class);
+		happy.putExtra("action", MINUS_HAPPY);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 2,
+				happy, PendingIntent.FLAG_UPDATE_CURRENT);
+		Calendar calendar = Calendar.getInstance();
+		// Time to add alarm
+		calendar.add(Calendar.HOUR_OF_DAY, 2);
+
 		setAlarm(pendingIntent, calendar.getTimeInMillis());
 	}
 
 	public void setAlarm(PendingIntent pendingIntent, Long time) {
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		alarmManager.set(AlarmManager.RTC_WAKEUP, time,
-				pendingIntent);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
 	}
 
 }

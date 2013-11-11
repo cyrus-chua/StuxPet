@@ -26,7 +26,7 @@ public class StuxPetDB {
 		try {
 			db = DBHelper.getWritableDatabase();
 		} catch (SQLException err) {
-			Log.i("caught sql" , err.getMessage());
+			Log.i("caught sql", err.getMessage());
 		}
 		return this;
 	}
@@ -74,14 +74,13 @@ public class StuxPetDB {
 	}
 
 	// --- delete a particular contact ---
-	public boolean deletePet(long rowId) {
-		return db.delete(StuxPetDBHelper.TABLE_NAME,
-				StuxPetDBHelper.COLUMN_NAME_ID + "=" + rowId, null) > 0;
+	public boolean deletePet() {
+		return db.delete(StuxPetDBHelper.TABLE_NAME, null, null) > 0;
 	}
 
 	// --- update a contact ---
-	public boolean updateStats(String species, int hunger,
-			int health, int happiness) {
+	public boolean updateStats(String species, int hunger, int health,
+			int happiness) {
 
 		Cursor c = getStats();
 
@@ -102,8 +101,7 @@ public class StuxPetDB {
 			if (health < 0)
 				health = 0;
 
-			data = c.getInt(c
-					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HAPPY));
+			data = c.getInt(c.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HAPPY));
 			happiness += data;
 			if (happiness < 0)
 				happiness = 0;
