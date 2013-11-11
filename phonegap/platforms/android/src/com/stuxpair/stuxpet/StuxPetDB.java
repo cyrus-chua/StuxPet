@@ -22,8 +22,12 @@ public class StuxPetDB {
 	}
 
 	// ---opens the database---
-	public StuxPetDB open() throws SQLException {
-		db = DBHelper.getWritableDatabase();
+	public StuxPetDB open() {
+		try {
+			db = DBHelper.getWritableDatabase();
+		} catch (SQLException err) {
+			Log.i("caught sql" , err.getMessage());
+		}
 		return this;
 	}
 
@@ -76,7 +80,7 @@ public class StuxPetDB {
 	}
 
 	// --- update a contact ---
-	public boolean updateStats(long rowId, String species, int hunger,
+	public boolean updateStats(String species, int hunger,
 			int health, int happiness) {
 
 		Cursor c = getStats();
@@ -86,21 +90,21 @@ public class StuxPetDB {
 			if (!species.isEmpty())
 				initialValues.put(StuxPetDBHelper.COLUMN_NAME_SPECIES, species);
 
-			hunger = c.getInt(c
-					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HUNGER))
-					+ hunger;
+			int data = c.getInt(c
+					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HUNGER));
+			hunger += data;
 			if (hunger < 0)
 				hunger = 0;
 
-			health = c.getInt(c
-					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HEALTH))
-					+ health;
+			data = c.getInt(c
+					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HEALTH));
+			health += data;
 			if (health < 0)
 				health = 0;
 
-			happiness = c.getInt(c
-					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HAPPY))
-					+ happiness;
+			data = c.getInt(c
+					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HAPPY));
+			happiness += data;
 			if (happiness < 0)
 				happiness = 0;
 

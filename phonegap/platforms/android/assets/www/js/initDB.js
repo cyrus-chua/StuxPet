@@ -11,7 +11,7 @@ function initDB(){
 	
 	function querySuccess(tx, results){
 		stats=results.rows.item(0);
-		console.log("stats:"+stats.health);
+		console.log(JSON.stringify(stats));
 	}
 
 	function onQueryError(error){

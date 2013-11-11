@@ -1,10 +1,14 @@
+$('#door2').eq(0).ready(function(){
+		navigator.splashscreen.hide();
+		console.log('loaded2');
+	});
+
 function onLoad() {
 	document.addEventListener('deviceready', onDeviceReady, false);
 }
 
 function onDeviceReady() {
 	console.log('ready running ver');
-	navigator.splashscreen.hide();
 	var numOpen = window.localStorage.getItem("numOpen");
 	console.log("Opened for the " + numOpen + "st/nd/rd/th time. (:");
 	if (numOpen == null)
@@ -87,7 +91,7 @@ function setup() {
 
 	// animate door opening
 	function openDoor(num, seq) {
-		if (seq <= 3) {
+		if (seq <= 2) {
 			var x_offset = (doorCount - 1 + num * 3 + seq) * -$('body').width();
 			$('#doors').css('transform', 'translate3d(' + x_offset + 'px,0,0)')
 					.removeClass();
@@ -96,6 +100,7 @@ function setup() {
 			}, 500);
 		} else {
 			document.location.href = "room" + num + ".html";
+			navigator.splashscreen.show();
 		}
 	}
 }

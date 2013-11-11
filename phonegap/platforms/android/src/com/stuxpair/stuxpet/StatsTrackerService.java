@@ -5,10 +5,7 @@ import java.util.Calendar;
 import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -39,24 +36,25 @@ public class StatsTrackerService extends IntentService {
 		// For our sample, we just sleep for 5 seconds.
 		petData.open();
 		Bundle extras = intent.getExtras();
-		if (extras!=null)
+		if (extras != null)
 			switch (extras.getInt("action")) {
 			case MINUS_HEALTH:
-				petData.updateStats(0, "", 0, -1, 0);
+				petData.updateStats("", 0, -1, 0);
 				handleHealth();
 				break;
 			case MINUS_HUNGER:
-				petData.updateStats(0, "", -1, 0, 0);
+				petData.updateStats("", -2, 0, 0);
 				handleHunger();
 				break;
 			case MINUS_HAPPY:
-				//TODO: handleHappy();
+				petData.updateStats("", 0, 0, -1);
+				handleHappy();
 				break;
 			}
-		else{
+		else {
 			handleHealth();
 			handleHunger();
-			//TODO: handleHappy();
+			handleHappy();
 		}
 		petData.close();
 	}
@@ -76,65 +74,59 @@ public class StatsTrackerService extends IntentService {
 	public void handleHealth() {
 		Intent health = new Intent(this, StatsTrackerService.class);
 		health.putExtra("action", MINUS_HEALTH);
-		PendingIntent pendingIntent = PendingIntent.getService(this, 0, health,
+		PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, health,
 				0);
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		// Time to add alarm
-		calendar.add(Calendar.HOUR, 2);
+		calendar.add(Calendar.HOUR_OF_DAY, 2);
 		setAlarm(pendingIntent, calendar.getTimeInMillis());
 	}
-	
+
 	public void handleHunger() {
 		Calendar calendar = Calendar.getInstance();
+		Log.i("alarms", "currentTime:"+calendar.getTime().toString());
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
 		if (hour < 9)
 			calendar.set(Calendar.HOUR_OF_DAY, 9);
-		else if (hour < 12)
-			calendar.set(Calendar.HOUR_OF_DAY, 12);
+		else if (hour < 13)
+			calendar.set(Calendar.HOUR_OF_DAY, 13);
 		else if (hour < 19)
 			calendar.set(Calendar.HOUR_OF_DAY, 19);
-		else{
+		else {
 			calendar.add(Calendar.DATE, 1);
 			calendar.set(Calendar.HOUR_OF_DAY, 9);
 		}
-		
-		calendar.set(Calendar.MINUTE, 0);
-		
+
+		calendar.set(Calendar.HOUR_OF_DAY, 14);
+		calendar.set(Calendar.MINUTE, 11);
+
 		Intent hunger = new Intent(this, StatsTrackerService.class);
 		hunger.putExtra("action", MINUS_HUNGER);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, hunger,
-				0);		
+		PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, hunger,
+				0);
 		setAlarm(pendingIntent, calendar.getTimeInMillis());
 	}
-	
+
 	public void handleHappy() {
-		Intent health = new Intent(this, StatsTrackerService.class);
-		health.putExtra("action", MINUS_HAPPY);
-		PendingIntent pendingIntent = PendingIntent.getService(this, 0, health,
-				0);
+		Intent happy = new Intent(this, StatsTrackerService.class);
+		happy.putExtra("action", MINUS_HAPPY);
+		PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
+				happy, 0);
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		// Time to add alarm
-		calendar.add(Calendar.HOUR, 2);
+		calendar.add(Calendar.HOUR_OF_DAY, 2);
+
+		calendar.set(Calendar.HOUR_OF_DAY, 14);
+		calendar.set(Calendar.MINUTE, 25);
 		setAlarm(pendingIntent, calendar.getTimeInMillis());
 	}
-	
-	public void setAlarm(PendingIntent pendingIntent, Long time){
-		 BroadcastReceiver br = new BroadcastReceiver() {
-		        @Override
-		        public void onReceive(Context c, Intent i) {
-		            c.startService(new Intent(c, StatsTrackerService.class));
-		        }
-		    };
 
-		    registerReceiver(br, new IntentFilter("StatsTrackerService.class"));
-		
+	public void setAlarm(PendingIntent pendingIntent, Long time) {
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 		alarmManager.set(AlarmManager.RTC_WAKEUP, time,
 				pendingIntent);
-		
-		unregisterReceiver(br);
 	}
 
 }

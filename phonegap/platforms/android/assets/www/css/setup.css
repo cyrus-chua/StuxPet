@@ -71,7 +71,7 @@ body {
 
 #bars {
 	width: 100%;
-	height: 5%;
+	height: 50px;
 	font-size: 0;
 	position:absolute;
 	top: 4px;
@@ -79,9 +79,10 @@ body {
 	z-index:2;
 	white-space: nowrap;
 }
+
 img{
-	height:80%;
-	vertical-align:middle;
+	height:30px;
+	margin-right:10px;
 }
 
 #bars div {
@@ -89,7 +90,8 @@ img{
 	border: 1px solid black;
 	width: 12%;
 	height: 10px;
-	margin: 20px 2px;
+	margin-top: 15px;
+	margin-right: 4px;
 }
 
 .life0 {background : #0000A0;}

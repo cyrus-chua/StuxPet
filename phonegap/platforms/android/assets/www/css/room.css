@@ -11,10 +11,10 @@ body {
 .room {
   width: 100%; height: 100%;
   display: inline-block;
-  background-size: 100%;
+  background-size: 100% 100%;
 }
 
-#room0 { background: url('../img/UI_home.png') no-repeat; }
+#room0 { background: url('../img/UI_home.png') no-repeat;}
 #room1 { background: #ab3f3f }
 #room2 { background: url('../img/UI_kitchen.png') no-repeat; }
 #room3 { background: url('../img/UI_playroom.png') no-repeat; }
