@@ -19,11 +19,6 @@ function onDeviceReady() {
 
 function checkPetStatus() {
 	initDB();
-	if (stats.name === null){
-		var name = prompt('Name your little monster :p');
-		updateName(name);
-	}
-	
 	$('.life' + stats.health).css('background', 'none');
 	$('.hunger' + stats.hunger).css('background', 'none');
 	$('.happy' + stats.happiness).css('background', 'none');

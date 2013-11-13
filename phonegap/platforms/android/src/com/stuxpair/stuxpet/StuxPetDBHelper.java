@@ -21,7 +21,7 @@ public class StuxPetDBHelper extends SQLiteOpenHelper {
 	
 	private static final String SQL_CREATE = "CREATE TABLE " + TABLE_NAME
 			+ " (" + COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-			+ COLUMN_NAME_NAME + " TEXT,"
+			+ COLUMN_NAME_NAME + " TEXT DEFAULT \'awiefh\',"
 			+ COLUMN_NAME_SPECIES_NAME + " TEXT,"
 			+ COLUMN_NAME_TYPE + " TEXT,"
 			+ COLUMN_NAME_HEALTH + " INTEGER DEFAULT 5,"
