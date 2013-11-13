@@ -41,7 +41,7 @@ public class StuxPet extends DroidGap {
 		checkPet();
 		super.setIntegerProperty("splashscreen", R.drawable.splash);
 		// Set by <content src="index.html" /> in config.xml
-		super.loadUrl(Config.getStartUrl(), 10000);
+		super.loadUrl(Config.getStartUrl(), 2000);
 		super.setIntegerProperty("splashscreen", R.drawable.splash2);
 	}
 
@@ -50,13 +50,15 @@ public class StuxPet extends DroidGap {
 		if (!petData.hasPet()) {
 			setNames();
 			SharedPreferences species_names = getSharedPreferences("names", 0);
-			String names[] = species_names.getString("baby", "null").split(",");
+			String names[] = species_names.getString(StuxPetDBHelper.TYPE_BABY, "null").split(",");
 			petData.insertPet(names[(int) (Math.random() * names.length)],
-					Calendar.getInstance().getTimeInMillis());
+					StuxPetDBHelper.TYPE_BABY, Calendar.getInstance()
+							.getTimeInMillis());
 		}
-		Log.i("stuxpet", "stats:"+petData.getStatsJSON());
 		Intent intent = new Intent(this, StatsTrackerService.class);
 		startService(intent);
+		Log.i("stuxpet", "stats:" + petData.getStatsJSON());
+
 		petData.close();
 	}
 
@@ -64,26 +66,26 @@ public class StuxPet extends DroidGap {
 		SharedPreferences species_names = getSharedPreferences("names", 0);
 		SharedPreferences.Editor editor = species_names.edit();
 		editor.putString(
-				"baby",
+				StuxPetDBHelper.TYPE_BABY,
 				"baby,infant,cherub,bawler,puny thing,small fry,newborn,suckling,crawler,chick,bundle,nursling");
 		editor.putString(
-				"child",
+				StuxPetDBHelper.TYPE_CHILD,
 				"child,kid,minor,adolescent,brat,cub,lamb,preteen,sprout,urchin,toddler,whippersnapper");
 		editor.putString(
-				"teen",
+				StuxPetDBHelper.TYPE_TEEN1,
 				"teen,good boy,guai kia,mama's boy,teacher's pet,well-behaved,youngster,lad,prefect,class monitor");
 		editor.putString(
-				"juvenile",
-				"juvenile,troublemaker,inexperienced,unsophisticated,immature,unfledged,naughty,bad boy,vandal,pai kia,rebel");
-		editor.putString("nerd",
+				StuxPetDBHelper.TYPE_TEEN2,
+				"delinquent,troublemaker,inexperienced,unsophisticated,immature,unfledged,naughty,bad boy,vandal,pai kia,rebel");
+		editor.putString(StuxPetDBHelper.TYPE_OTAKU,
 				"otaku,geek,gamer,dweeb,weirdo,trekkie,dork,hacker,introvert,forever alone");
 		editor.putString(
-				"athlete",
+				StuxPetDBHelper.TYPE_ATHLETE,
 				"athlete,sportsman,runner,jumper,tracker,jock,brawny,fit,muscled,insane bolt,maria");
 		editor.putString(
-				"socialite",
+				StuxPetDBHelper.TYPE_SOCIALITE,
 				"socialite,clubber,player,social animal,suave,gentleman,playboy,well-connected,businessman,extrovert");
 		editor.commit();
 	}
-	 
+
 }

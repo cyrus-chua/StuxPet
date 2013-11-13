@@ -1,9 +1,5 @@
 function onLoad() {
 	document.addEventListener('deviceready', onDeviceReady, false);
-	$('#door2').eq(0).ready(function(){
-		navigator.splashscreen.hide();
-		console.log('loaded2');
-	});
 }
 
 function onDeviceReady() {
@@ -23,20 +19,33 @@ function onDeviceReady() {
 
 function checkPetStatus() {
 	initDB();
-	$('.life'+stats.health).css('background','none');
-	$('.hunger'+stats.hunger).css('background','none');
-	$('.happy'+stats.happiness).css('background','none');
+	if (stats.name === null){
+		var name = prompt('Name your little monster :p');
+		updateName(name);
+	}
+	
+	$('.life' + stats.health).css('background', 'none');
+	$('.hunger' + stats.hunger).css('background', 'none');
+	$('.happy' + stats.happiness).css('background', 'none');
 }
 
 function setup() {
-	var sliding = startPageX = startPixelOffset = pixelOffset = currentDoor = 0, doorCount = $('.door').length - 12;
+	var sliding = startPageX = startPixelOffset = pixelOffset = currentDoor = 0, doorCount = $('.door').length - 15;
+
+	$('#doors').addClass('animate')
+			.css(
+					'transform',
+					'translate3d(' + $('.door').length * -$('body').width()
+							+ 'px,0,0)');
 
 	var i = document.location.href.search('room');
-	if (i > 0) {
+	if (i > 0)
 		pixelOffset = document.location.href.substr(i + 5) * -$('body').width();
+	
+	setTimeout(function() {
 		$('#doors').addClass('animate').css('transform',
 				'translate3d(' + pixelOffset + 'px,0,0)');
-	}
+	}, 1000);
 
 	$('html').on('mousedown touchstart', slideStart);
 	$('html').on('mouseup touchend', slideEnd);
@@ -57,7 +66,7 @@ function setup() {
 			event = event.originalEvent.touches[0];
 		var deltaSlide = event.pageX - startPageX;
 
-		if (sliding == 1 && Math.abs(deltaSlide) > 30) {
+		if (sliding == 1 && Math.abs(deltaSlide) > 2) {
 			sliding = 2;
 			startPixelOffset = pixelOffset;
 		}
@@ -67,7 +76,7 @@ function setup() {
 			var endPixelOffset = startPixelOffset + deltaSlide
 					/ touchPixelRatio;
 			if (endPixelOffset < 0
-					&& endPixelOffset > (doorCount - 1) * -$('body').width())
+					&& endPixelOffset > doorCount * -$('body').width())
 				pixelOffset = endPixelOffset;
 			$('#doors').css('transform',
 					'translate3d(' + pixelOffset + 'px,0,0)').removeClass();
@@ -75,11 +84,11 @@ function setup() {
 	}
 
 	function slideEnd(event) {
+		currentDoor = -Math.round(pixelOffset / $('body').width());
 		if (sliding == 2) {
 			if (event.originalEvent.touches)
 				event = event.originalEvent.touches[0];
 			sliding = 0;
-			currentDoor = -Math.round(pixelOffset / $('body').width());
 			pixelOffset = currentDoor * -$('body').width();
 			$('#doors').addClass('animate').css('transform',
 					'translate3d(' + pixelOffset + 'px,0,0)');
@@ -91,15 +100,17 @@ function setup() {
 	// animate door opening
 	function openDoor(num, seq) {
 		if (seq <= 2) {
-			var x_offset = (doorCount - 1 + num * 3 + seq) * -$('body').width();
+			var x_offset = (doorCount + num * 2 + seq) * -$('body').width();
 			$('#doors').css('transform', 'translate3d(' + x_offset + 'px,0,0)')
 					.removeClass();
 			setTimeout(function() {
 				openDoor(num, seq + 1);
 			}, 500);
 		} else {
-			document.location.href = "room" + num + ".html";
-			navigator.splashscreen.show();
+			setTimeout(function() {
+				navigator.splashscreen.show();
+				document.location.href = "room" + num + ".html";
+			}, 300);
 		}
 	}
 }

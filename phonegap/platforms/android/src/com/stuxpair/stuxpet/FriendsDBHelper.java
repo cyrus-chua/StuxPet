@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class PlacesDBHelper extends SQLiteOpenHelper {
+public class FriendsDBHelper extends SQLiteOpenHelper {
 	public static final String TABLE_NAME = "stuxpet";
 	public static final String COLUMN_NAME_ID = "_id";
 	public static final String COLUMN_NAME_SPECIES = "species";
@@ -33,7 +33,7 @@ public class PlacesDBHelper extends SQLiteOpenHelper {
 	public static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "stuxpair";
 
-	public PlacesDBHelper(Context context) {
+	public FriendsDBHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 

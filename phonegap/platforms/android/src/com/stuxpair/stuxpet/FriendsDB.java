@@ -6,19 +6,19 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-public class PlacesDB {
+public class FriendsDB {
 
 	final Context context;
 	StuxPetDBHelper DBHelper;
 	SQLiteDatabase db;
 
-	public PlacesDB(Context ctx) {
+	public FriendsDB(Context ctx) {
 		this.context = ctx;
 		DBHelper = new StuxPetDBHelper(this.context);
 	}
 
 	// ---opens the database---
-	public PlacesDB open() throws SQLException {
+	public FriendsDB open() throws SQLException {
 		db = DBHelper.getWritableDatabase();
 		return this;
 	}
@@ -31,7 +31,7 @@ public class PlacesDB {
 	public boolean hasPet(){
 		Cursor c = db.query(StuxPetDBHelper.TABLE_NAME, new String[] {
 				StuxPetDBHelper.COLUMN_NAME_ID,
-				StuxPetDBHelper.COLUMN_NAME_SPECIES}, null, null, null,
+				StuxPetDBHelper.COLUMN_NAME_SPECIES_NAME}, null, null, null,
 				null, null);
 		return c!=null;
 	}
@@ -40,7 +40,7 @@ public class PlacesDB {
 	// --- insert a pet into the database ---
 	public long insertPet(String name, Long birthtime) {
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(StuxPetDBHelper.COLUMN_NAME_SPECIES, name);
+		initialValues.put(StuxPetDBHelper.COLUMN_NAME_SPECIES_NAME, name);
 		initialValues.put(StuxPetDBHelper.COLUMN_NAME_BIRTHDAY, birthtime);
 		return db.insert(StuxPetDBHelper.TABLE_NAME, null, initialValues);
 	}
@@ -49,7 +49,7 @@ public class PlacesDB {
 	// --- retrieves pets stats --
 	public Cursor getStats() {
 		return db.query(StuxPetDBHelper.TABLE_NAME, new String[] {
-				StuxPetDBHelper.COLUMN_NAME_SPECIES,
+				StuxPetDBHelper.COLUMN_NAME_SPECIES_NAME,
 				StuxPetDBHelper.COLUMN_NAME_ID,
 				StuxPetDBHelper.COLUMN_NAME_HEALTH,
 				StuxPetDBHelper.COLUMN_NAME_HUNGER,

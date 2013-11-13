@@ -64,10 +64,18 @@ body {
 .door:nth-child(7) {background: url('../img/UI_door_stuxnet.png') no-repeat;}
 .door:nth-child(8) {background: url('../img/home1.png') no-repeat;}
 .door:nth-child(9) {background: url('../img/home2.png') no-repeat;}
-.door:nth-child(10) {background: url('../img/door_open.png') no-repeat;}
-.door:nth-child(17) {background: url('../img/play1.png') no-repeat;}
-.door:nth-child(18) {background: url('../img/play2.png') no-repeat;}
-.door:nth-child(19) {background: url('../img/dooropen.png') no-repeat;}
+.door:nth-child(10) {background: url('../img/stats1.png') no-repeat;}
+.door:nth-child(11) {background: url('../img/stats2.png') no-repeat;}
+.door:nth-child(12) {background: url('../img/kitchen1.png') no-repeat;}
+.door:nth-child(13) {background: url('../img/kitchen2.png') no-repeat;}
+.door:nth-child(14) {background: url('../img/playroom1.png') no-repeat;}
+.door:nth-child(15) {background: url('../img/playroom2.png') no-repeat;}
+.door:nth-child(16) {background: url('../img/toilet1.png') no-repeat;}
+.door:nth-child(17) {background: url('../img/toilet2.png') no-repeat;}
+.door:nth-child(18) {background: url('../img/sickbay1.png') no-repeat;}
+.door:nth-child(19) {background: url('../img/sickbay2.png') no-repeat;}
+.door:nth-child(20) {background: url('../img/stuxnet1.png') no-repeat;}
+.door:nth-child(21) {background: url('../img/stuxnet2.png') no-repeat;}
 
 #bars {
 	width: 100%;

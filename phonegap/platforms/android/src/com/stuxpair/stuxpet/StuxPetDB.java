@@ -39,15 +39,16 @@ public class StuxPetDB {
 	public boolean hasPet() {
 		Cursor c = db.query(StuxPetDBHelper.TABLE_NAME, new String[] {
 				StuxPetDBHelper.COLUMN_NAME_ID,
-				StuxPetDBHelper.COLUMN_NAME_SPECIES }, null, null, null, null,
+				StuxPetDBHelper.COLUMN_NAME_SPECIES_NAME }, null, null, null, null,
 				null);
 		return c.getCount() != 0;
 	}
 
 	// --- insert a pet into the database ---
-	public long insertPet(String name, Long birthtime) {
+	public long insertPet(String name, String type, Long birthtime) {
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(StuxPetDBHelper.COLUMN_NAME_SPECIES, name);
+		initialValues.put(StuxPetDBHelper.COLUMN_NAME_SPECIES_NAME, name);
+		initialValues.put(StuxPetDBHelper.COLUMN_NAME_TYPE, type);
 		initialValues.put(StuxPetDBHelper.COLUMN_NAME_BIRTHDAY, birthtime);
 		return db.insert(StuxPetDBHelper.TABLE_NAME, null, initialValues);
 	}
@@ -79,36 +80,45 @@ public class StuxPetDB {
 	}
 
 	// --- update a contact ---
-	public boolean updateStats(String species, int hunger, int health,
-			int happiness) {
+	public boolean updateStats(String species, int type, int health, int hunger,
+			int happiness, int shit) {
 
 		Cursor c = getStats();
 
 		ContentValues initialValues = new ContentValues();
 		if (c.moveToFirst()) {
-			if (!species.isEmpty())
-				initialValues.put(StuxPetDBHelper.COLUMN_NAME_SPECIES, species);
+			if (!species.isEmpty()){
+				initialValues.put(StuxPetDBHelper.COLUMN_NAME_SPECIES_NAME, species);
+				initialValues.put(StuxPetDBHelper.COLUMN_NAME_TYPE, species);
+			}
 
 			int data = c.getInt(c
-					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HUNGER));
-			hunger += data;
-			if (hunger < 0)
-				hunger = 0;
-
-			data = c.getInt(c
 					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HEALTH));
 			health += data;
 			if (health < 0)
-				health = 0;
+				health = 5;
+			
+			data = c.getInt(c
+					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HUNGER));
+			hunger += data;
+			if (hunger < 0)
+				hunger = 5;
 
 			data = c.getInt(c.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HAPPY));
 			happiness += data;
 			if (happiness < 0)
-				happiness = 0;
+				happiness = 5;
+			
+			data = c.getInt(c.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_SHIT));
+			shit += data;
+			if (shit > 4)
+				happiness = 4;
 
-			initialValues.put(StuxPetDBHelper.COLUMN_NAME_HUNGER, hunger);
+
 			initialValues.put(StuxPetDBHelper.COLUMN_NAME_HEALTH, health);
+			initialValues.put(StuxPetDBHelper.COLUMN_NAME_HUNGER, hunger);
 			initialValues.put(StuxPetDBHelper.COLUMN_NAME_HAPPY, happiness);
+			initialValues.put(StuxPetDBHelper.COLUMN_NAME_SHIT, shit);
 		}
 		return db.update(StuxPetDBHelper.TABLE_NAME, initialValues, null, null) > 0;
 	}
