@@ -47,6 +47,7 @@ function initDB() {
 			tx.executeSql(query, [], 
 			function(tx, results){
 				console.log(statsName + " updated " +results.rowsAffected + " (1)rows");
+				$('#'+statsName).removeAttr('style');
 			},
 			function(error){
 				console.log("updateStatsError: "+error.message);

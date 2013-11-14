@@ -6,7 +6,7 @@ function onLoad() {
 		num : document.location.href.split('room')[1].charAt(0)
 	}
 	initDB();
-	$('#pet').css('background', 'url(img/' + stats.type + '_happy.gif)');
+	$('#pet').css('background-image', 'url(img/' + stats.type + '_happy.gif)');
 	$('#pet').css('background-position', '45% 75%');
 	$('#pet').css('background-repeat', 'no-repeat');
 	$('#pet').css('background-size', '50%');
@@ -34,21 +34,28 @@ function onDeviceReady() {
 		break;
 	case "2":
 		$('#bread, #cake, #vitamin').on('touchstart', function(event) {
-			var parent = $(this);
-			var id = parent.attr('id');
-			parent.css('background-color', 'white');
-			setTimeout(function() {
-				parent.removeAttr('style');
-				setTimeout(function(){
-					if (id == "bread"){
-						updateStats("hunger");
-					} else if (id == "cake"){
-						updateStats("happiness");
-					} else if (id == "vitamin"){
-						updateStats("health");
-					}
-				}, 200);
-			}, 100);
+			$(this).off('touchstart');
+			$(this).css('background-color', 'white');
+			var id = $(this).attr('id');
+			if (id == "bread"){
+				$('#pet').css('background-image', 'url(img/' + stats.type + '_eating.gif)');
+				updateStats("hunger");
+			} else if (id == "cake"){
+				$('#pet').css('background-image', 'url(img/' + stats.type + '_eatingcake.gif)');
+				updateStats("happiness");
+			} else if (id == "vitamin"){
+				$('#pet').css('background-image', 'url(img/' + stats.type + '_eatingmedicine.gif)');
+				updateStats("health");
+			}
+			$('#pet').css('background-position', '10% 75%');
+			$('#pet').css('background-repeat', 'no-repeat');
+			$('#pet').css('background-size', '90%');
+			setTimeout(function(){
+				$('#pet').css('background-image', 'url(img/' + stats.type + '_happy.gif)');
+				$('#pet').css('background-position', '45% 75%');
+				$('#pet').css('background-repeat', 'no-repeat');
+				$('#pet').css('background-size', '50%');
+			}, 5000);
 		});
 		break;
 	}

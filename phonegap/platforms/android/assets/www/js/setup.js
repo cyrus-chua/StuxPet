@@ -102,8 +102,8 @@ function setup() {
 				openDoor(num, seq + 1);
 			}, 500);
 		} else {
+			navigator.splashscreen.show();
 			setTimeout(function() {
-				navigator.splashscreen.show();
 				document.location.href = "room" + num + ".html";
 			}, 300);
 		}
