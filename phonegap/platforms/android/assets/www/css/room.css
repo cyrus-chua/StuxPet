@@ -113,7 +113,11 @@ body {
 }
 
 #room6 {
-	background: url('../img/UI_home.png') no-repeat;
+	background: yellow;
+	font-family: hermit;
+	color: black;
+	font-size: 40px;
+	text-align: center;
 }
 
 #pet {

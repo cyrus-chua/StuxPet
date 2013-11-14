@@ -38,22 +38,44 @@ function initDB() {
 	}
 
 	function onQueryError(error) {
-		console.log("Error processing SQL: " + JSON.stringify(error.message) + JSON.stringify(error.result));
-	}
-	
-	window.updateStats = function(statsName) {
-		db.transaction(function(tx){
-			var query = 'UPDATE stuxpet SET '+ statsName +' = 5 where birthday IS NOT NULL;';
-			tx.executeSql(query, [], 
-			function(tx, results){
-				console.log(statsName + " updated " +results.rowsAffected + " (1)rows");
-				$('#'+statsName).removeAttr('style');
-			},
-			function(error){
-				console.log("updateStatsError: "+error.message);
-			});
-		} , onQueryError);
-		
+		console.log("Error processing SQL: " + JSON.stringify(error.message)
+				+ JSON.stringify(error.result));
 	}
 
+	window.updateStats = function(statsName) {
+		db.transaction(function(tx) {
+			var query = 'UPDATE stuxpet SET ' + statsName
+					+ ' = 5 where birthday IS NOT NULL;';
+			tx.executeSql(query, [], function(tx, results) {
+				console.log(statsName + " updated " + results.rowsAffected
+						+ " (1)rows");
+			}, function(error) {
+				console.log("updateStatsError: " + error.message);
+			});
+		}, onQueryError);
+
+	}
+
+	window.addStats = function(statsName) {
+		db.transaction(function(tx) {
+			var query = 'Select ' + statsName
+					+ ' FROM stuxpet where birthday IS NOT NULL;';
+			tx.executeSql(query, [], function(tx, results) {
+				console.log(statsName + " updated " + results.rowsAffected + " (1)rows");
+				for (var key in results.rows.item(0))
+					var value = results.rows.item(0)[key];
+				query = 'UPDATE stuxpet SET ' + statsName
+				+ ' = ? where birthday IS NOT NULL;';
+				tx.executeSql(query, [Number(value+1)], function(tx, results){
+					console.log(statsName + " updated " + results.rowsAffected + " (1)rows");
+				},
+				function(error) {
+					console.log("addStats: " + error.message);
+				})
+			}, 
+			function(error) {
+				console.log("addStats: " + error.message);
+			});
+		}, onQueryError);
+	}
 }

@@ -27,6 +27,7 @@ public class StuxPetDB {
 		try {
 			db = DBHelper.getWritableDatabase();
 			// to renew db
+			//DBHelper.onUpgrade(db, 1, 2);
 		} catch (SQLException err) {
 			Log.i("caught sql", err.getMessage());
 		}

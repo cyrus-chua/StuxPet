@@ -31,90 +31,62 @@ function onDeviceReady() {
 		$('#room1').append(
 				'&nbsp;&nbsp;age: ' + hours + 'H ' + minutes + 'M ' + seconds
 						+ 'S<br />');
+		$('#room1').append('&nbsp;&nbsp;intel: ' + stats.intel + '<br />');
+		$('#room1').append('&nbsp;&nbsp;fitness: ' + stats.fitness + '<br />');
+		$('#room1').append('&nbsp;&nbsp;social: ' + stats.social + '<br />');
 		break;
 	case "2":
-		$('#bread, #cake, #vitamin').on('touchstart', function(event) {
-			$(this).off('touchstart');
-			$(this).css('background-color', 'white');
-			var id = $(this).attr('id');
-			if (id == "bread"){
-				$('#pet').css('background-image', 'url(img/' + stats.type + '_eating.gif)');
-				updateStats("hunger");
-			} else if (id == "cake"){
-				$('#pet').css('background-image', 'url(img/' + stats.type + '_eatingcake.gif)');
-				updateStats("happiness");
-			} else if (id == "vitamin"){
-				$('#pet').css('background-image', 'url(img/' + stats.type + '_eatingmedicine.gif)');
-				updateStats("health");
-			}
-			$('#pet').css('background-position', '10% 75%');
-			$('#pet').css('background-repeat', 'no-repeat');
-			$('#pet').css('background-size', '90%');
-			setTimeout(function(){
-				$('#pet').css('background-image', 'url(img/' + stats.type + '_happy.gif)');
-				$('#pet').css('background-position', '45% 75%');
-				$('#pet').css('background-repeat', 'no-repeat');
-				$('#pet').css('background-size', '50%');
-			}, 5000);
+		$('#bread, #cake, #vitamin').on(
+				'touchstart',
+				function(event) {
+					$(this).off('touchstart');
+					$(this).css('background-color', 'white');
+					var id = $(this).attr('id');
+					if (id == "bread") {
+						$('#pet').css('background-image',
+								'url(img/' + stats.type + '_eating.gif)');
+						updateStats("hunger");
+					} else if (id == "cake") {
+						$('#pet').css('background-image',
+								'url(img/' + stats.type + '_eatingcake.gif)');
+						updateStats("happiness");
+					} else if (id == "vitamin") {
+						$('#pet').css(
+								'background-image',
+								'url(img/' + stats.type
+										+ '_eatingmedicine.gif)');
+						updateStats("health");
+					}
+					$('#pet').css('background-position', '10% 75%');
+					$('#pet').css('background-repeat', 'no-repeat');
+					$('#pet').css('background-size', '90%');
+					setTimeout(function() {
+						$('#pet').css('background-image',
+								'url(img/' + stats.type + '_happy.gif)');
+						$('#pet').css('background-position', '45% 75%');
+						$('#pet').css('background-repeat', 'no-repeat');
+						$('#pet').css('background-size', '50%');
+					}, 5000);
+				});
+		break;
+	case "3":
+		$("#pet").on('click', function() {
+			document.location.href = "quickmatch/index.html";
 		});
+		addStats("intel");
 		break;
 	case "4":
-		for (var i=0; i<stats.shit && i < 5; i++){
-			$('.dabians').append('<div id="db'+i+'" class="dabian"></div>');
+		for ( var i = 0; i < stats.shit && i < 5; i++) {
+			$('.dabians').append('<div id="db' + i + '" class="dabian"></div>');
 		}
-		
-		$('.dabian').on('touchstart', dbStart);
-		$('.dabian').on('touchend', dbStop);
-		$('.dabian').on('touchmove', dbSlide);
-		
-		var sliding = startPageX = startPageY = startPixelOffset = pixelOffset = 0;
-		var id="db";
-		function dbStart(event) {
-			id = $(this).attr('id');
-			if (event.originalEvent.touches)
-				event = event.originalEvent.touches[0];
-			if (sliding == 0) {
-				sliding = 1;
-				startPageX = event.pageX;
-				startPageY = event.pageY;
-			}
-		}
-		
-		function dbStop(event) {
-			event.preventDefault();
-			if (event.originalEvent.touches)
-				event = event.originalEvent.touches[0];
-			var deltaSlide = event.pageX - startPageX;
-
-			if (sliding == 1 && Math.abs(deltaSlide) > 2) {
-				sliding = 2;
-				startPixelOffset = pixelOffset;
-			}
-
-			if (sliding == 2) {
-				var touchPixelRatio = 1 / 5; // 5x scrolling speed
-				var endPixelOffset = startPixelOffset + deltaSlide / touchPixelRatio;
-				if (endPixelOffset < 0
-						&& endPixelOffset > doorCount * -$('body').width())
-					pixelOffset = endPixelOffset;
-				$('#doors').css('transform',
-						'translate3d(' + pixelOffset + 'px,0,0)').removeClass();
-			}
-		}
-		
-		function dbSlide(event){
-			
-		}
-		
-		
-		//$('.dabian').css('transform',
-			//	'translate3d(' + pixelOffset + 'px,0,0)').removeClass();
 		break;
+	case "6":
+		$('#room6').append('<br /><br />Bring your device <br /> close to your friend\'s. <br /><br /> Then, tap to send <br /><b>' +stats.name+'</b>');  
 	}
-	
+
 }
 
 function returnToDoor() {
-	//navigator.splashscreen.show();
+	// navigator.splashscreen.show();
 	document.location.href = "index.html?room=" + currentRoom.num;
 }

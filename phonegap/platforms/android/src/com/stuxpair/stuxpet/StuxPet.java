@@ -27,7 +27,10 @@ import org.apache.cordova.DroidGap;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 public class StuxPet extends DroidGap {
@@ -86,6 +89,5 @@ public class StuxPet extends DroidGap {
 				StuxPetDBHelper.TYPE_SOCIALITE,
 				"socialite,clubber,player,social animal,suave,gentleman,playboy,well-connected,businessman,extrovert");
 		editor.commit();
-	}	
-
+	}
 }
