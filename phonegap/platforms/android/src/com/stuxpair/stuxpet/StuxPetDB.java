@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -40,8 +41,8 @@ public class StuxPetDB {
 	public boolean hasPet() {
 		Cursor c = db.query(StuxPetDBHelper.TABLE_NAME, new String[] {
 				StuxPetDBHelper.COLUMN_NAME_ID,
-				StuxPetDBHelper.COLUMN_NAME_SPECIES_NAME }, null, null, null, null,
-				null);
+				StuxPetDBHelper.COLUMN_NAME_SPECIES_NAME }, null, null, null,
+				null, null);
 		return c.getCount() != 0;
 	}
 
@@ -81,40 +82,58 @@ public class StuxPetDB {
 	}
 
 	// --- update a contact ---
-	public boolean updateStats(String species, int type, int health, int hunger,
-			int happiness, int shit) {
+	public boolean updateStats(String species, int type, int health,
+			int hunger, int happiness, int shit) {
 
 		Cursor c = getStats();
 
 		ContentValues initialValues = new ContentValues();
 		if (c.moveToFirst()) {
-			if (!species.isEmpty()){
-				initialValues.put(StuxPetDBHelper.COLUMN_NAME_SPECIES_NAME, species);
+			if (!species.isEmpty()) {
+				initialValues.put(StuxPetDBHelper.COLUMN_NAME_SPECIES_NAME,
+						species);
 				initialValues.put(StuxPetDBHelper.COLUMN_NAME_TYPE, species);
 			}
 
 			int data = c.getInt(c
 					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HEALTH));
 			health += data;
-			if (health < 0)
-				health = 5;
-			
+			if (health < 0) {
+				health = 0;
+				context.getApplicationContext().sendBroadcast(
+						new Intent(context.getApplicationContext(),
+								StatsReceiver.class).putExtra("isZero", true)
+								.putExtra("action",
+										StatsTrackerService.MINUS_HEALTH));
+			}
+
 			data = c.getInt(c
 					.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HUNGER));
 			hunger += data;
-			if (hunger < 0)
-				hunger = 5;
+			if (hunger < 0) {
+				hunger = 0;
+				context.getApplicationContext().sendBroadcast(
+						new Intent(context.getApplicationContext(),
+								StatsReceiver.class).putExtra("isZero", true)
+								.putExtra("action",
+										StatsTrackerService.MINUS_HUNGER));
+			}
 
 			data = c.getInt(c.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_HAPPY));
 			happiness += data;
-			if (happiness < 0)
+			if (happiness < 0) {
 				happiness = 5;
-			
+				context.getApplicationContext().sendBroadcast(
+						new Intent(context.getApplicationContext(),
+								StatsReceiver.class).putExtra("isZero", true)
+								.putExtra("action",
+										StatsTrackerService.MINUS_HAPPY));
+			}
+
 			data = c.getInt(c.getColumnIndex(StuxPetDBHelper.COLUMN_NAME_SHIT));
 			shit += data;
 			if (shit > 4)
 				happiness = 4;
-
 
 			initialValues.put(StuxPetDBHelper.COLUMN_NAME_HEALTH, health);
 			initialValues.put(StuxPetDBHelper.COLUMN_NAME_HUNGER, hunger);

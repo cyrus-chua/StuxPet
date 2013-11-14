@@ -26,7 +26,7 @@ function onDeviceReady() {
 				'&nbsp;&nbsp;species_name: ' + stats.species + '<br />');
 		$('#room1').append(
 				'&nbsp;&nbsp;birthday: ' + birthday.getDate() + '/'
-						+ birthday.getMonth() + 1 + '/'
+						+ Number(birthday.getMonth() + 1) + '/'
 						+ birthday.getFullYear() + '<br />');
 		$('#room1').append(
 				'&nbsp;&nbsp;age: ' + hours + 'H ' + minutes + 'M ' + seconds
@@ -58,7 +58,20 @@ function onDeviceReady() {
 			}, 5000);
 		});
 		break;
+	case "4":
+		for (var i=0; i<stats.shit && i < 5; i++){
+			$('.dabians').append('<div class="dabian"></div>');
+		}
+		
+		$('.dabian').on('mousedown touchstart', slideStart);
+		$('.dabian').on('mouseup touchend', slideEnd);
+		$('.dabian').on('mousemove touchmove', slide);
+		
+		$('.dabian').css('transform',
+				'translate3d(' + pixelOffset + 'px,0,0)').removeClass();
+		break;
 	}
+	
 }
 
 function returnToDoor() {

@@ -54,9 +54,9 @@ public class StuxPet extends DroidGap {
 			petData.insertPet(names[(int) (Math.random() * names.length)],
 					StuxPetDBHelper.TYPE_BABY, Calendar.getInstance()
 							.getTimeInMillis());
+			Intent intent = new Intent(this, StatsTrackerService.class);
+			startService(intent);
 		}
-		Intent intent = new Intent(this, StatsTrackerService.class);
-		startService(intent);
 		Log.i("stuxpet", "stats:" + petData.getStatsJSON());
 
 		petData.close();
@@ -86,6 +86,6 @@ public class StuxPet extends DroidGap {
 				StuxPetDBHelper.TYPE_SOCIALITE,
 				"socialite,clubber,player,social animal,suave,gentleman,playboy,well-connected,businessman,extrovert");
 		editor.commit();
-	}
+	}	
 
 }

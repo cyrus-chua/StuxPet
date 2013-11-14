@@ -22,6 +22,9 @@ function checkPetStatus() {
 	$('.life' + stats.health).css('background', 'none');
 	$('.hunger' + stats.hunger).css('background', 'none');
 	$('.happy' + stats.happiness).css('background', 'none');
+	for (var i=0; i<stats.shit && i < 5; i++){
+		$('#bars').append('<img src="img/dabian.png">');
+	}
 }
 
 function setup() {

@@ -4,6 +4,7 @@ import org.json.JSONException;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -36,24 +37,30 @@ public class StatsReceiver extends BroadcastReceiver {
 			switch (extras.getInt("action")) {
 			case StatsTrackerService.MINUS_HEALTH:
 				message = petName + " is sick :S";
-				message2 = " give " + petName + " vitamins";
+				message2 += " give " + petName + " vitamins";
 				icon = R.drawable.heart;
 				break;
 			case StatsTrackerService.MINUS_HUNGER:
 				message = petName + " is hungry.";
-				message2 = " feed " + petName;
+				message2 += " feed " + petName;
 				icon = R.drawable.meat;
 				break;
 			case StatsTrackerService.MINUS_HAPPY:
 				message = petName + " is sad :(";
-				message2 = " cheer " + petName + " up with a cake!";
+				message2 += " cheer " + petName + " up with a cake!";
 				icon = R.drawable.smiley;
 				break;
 			}
 
+			Intent stuxIntent = new Intent(context, StuxPet.class);
+
+			PendingIntent stuxPendIntent = PendingIntent.getActivity(context,
+					0, stuxIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
 			Notification pop = new Notification.Builder(context)
 					.setSmallIcon(icon).setContentTitle(message)
-					.setContentText(message2).build();
+					.setContentText(message2).setContentIntent(stuxPendIntent)
+					.build();
 
 			((NotificationManager) context
 					.getSystemService(Context.NOTIFICATION_SERVICE)).notify(
