@@ -40,7 +40,7 @@ function setup() {
 	setTimeout(function() {
 		$('#doors').addClass('animate').css('transform',
 				'translate3d(' + pixelOffset + 'px,0,0)');
-	}, 1000);
+	}, 100);
 
 	$('html').on('mousedown touchstart', slideStart);
 	$('html').on('mouseup touchend', slideEnd);

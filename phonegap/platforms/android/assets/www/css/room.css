@@ -40,12 +40,49 @@ body {
 	background: #ab3f3f;
 	font-family: hermit;
 	color: white;
-	font-size : 20px;
-	text-align : left;
+	font-size: 20px;
+	text-align: left;
 }
 
 #room2 {
 	background: url('../img/UI_kitchen.png') no-repeat;
+}
+
+.foods {
+	width: 80%;
+	height: 60px;
+	font-size: 0;
+	position: absolute;
+	top: 50px;
+	left: 10%;
+	z-index: 2;
+	white-space: nowrap;
+}
+
+.foods div {
+	-webkit-border-radius: 999px;
+	-moz-border-radius: 999px;
+	border-radius: 999px;
+	width: 80px; height:80px;
+	border: 1px solid white;
+	display: inline-block;
+}
+
+#bread {
+	background: url('../img/bread.png') no-repeat 40%;
+	background-size : 70%;
+	margin-right: 20px;
+}
+
+#cake {
+	background: url('../img/cake.png') no-repeat 90%;
+	background-size : 90%;
+	margin-right: 20px;
+}
+
+#vitamin {
+	background: url('../img/medicine.png') no-repeat 60%;
+	background-size : 70%;
 }
 
 #room3 {
@@ -69,6 +106,4 @@ body {
 	height: 100%;
 	position: absolute;
 	z-index: 10;
-	background: no-repeat 45% 75%;
-	background-size: 50%;
 }
