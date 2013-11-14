@@ -196,7 +196,7 @@ public class SQLitePlugin extends CordovaPlugin
 	{
 		if (this.getDatabase(dbname) != null) this.closeDatabase(dbname);
 
-		File dbfile = this.cordova.getActivity().getDatabasePath(dbname + ".db");
+		File dbfile = this.cordova.getActivity().getDatabasePath(dbname);
 
 		if (!dbfile.exists()) {
 		    dbfile.getParentFile().mkdirs();

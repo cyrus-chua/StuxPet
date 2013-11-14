@@ -1,31 +1,74 @@
+@font-face {
+	font-family: hermit;
+	src: url('../font/hermit.otf')
+}
+
 html,body {
 	height: 100%;
 }
 
 body {
-  margin: 0;
-  overflow: hidden;
-  background: #333;
+	margin: 0;
+	overflow: hidden;
+	background: #333;
+}
+
+.rooms {
+	width: 100%;
+	height: 100%;
+	white-space: nowrap;
+	font-size: 0;
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
 }
 
 .room {
-  width: 100%; height: 100%;
-  display: inline-block;
-  background-size: 100% 100%;
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+	background-size: 100% 100%;
 }
 
-#room0 { background: url('../img/UI_home.png') no-repeat;}
-#room1 { background: #ab3f3f }
-#room2 { background: url('../img/UI_kitchen.png') no-repeat; }
-#room3 { background: url('../img/UI_playroom.png') no-repeat; }
-#room4 { background: url('../img/UI_toilet.png') no-repeat; }
-#room5 { background: url('../img/UI_sickbay.png') no-repeat; }
-#room6 { background: url('../img/UI_home.png') no-repeat; }
+#room0 {
+	background: url('../img/UI_home.png') no-repeat;
+}
+
+#room1 {
+	background: #ab3f3f;
+	font-family: hermit;
+	color: white;
+	font-size : 20px;
+	text-align : left;
+}
+
+#room2 {
+	background: url('../img/UI_kitchen.png') no-repeat;
+}
+
+#room3 {
+	background: url('../img/UI_playroom.png') no-repeat;
+}
+
+#room4 {
+	background: url('../img/UI_toilet.png') no-repeat;
+}
+
+#room5 {
+	background: url('../img/UI_sickbay.png') no-repeat;
+}
+
+#room6 {
+	background: url('../img/UI_home.png') no-repeat;
+}
 
 #pet {
-	width: 100%; height:100%;
-	position:absolute;
-	z-index:10;
-	background: url('../img/otaku_happy.gif') no-repeat 45% 75%;
-	background-size : 50%;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 10;
+	background: no-repeat 45% 75%;
+	background-size: 50%;
 }

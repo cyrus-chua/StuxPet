@@ -8,16 +8,16 @@ var db, stats = {
 	shit : 0
 };
 function initDB() {
-	var db = window.sqlitePlugin.openDatabase({
+	db = window.sqlitePlugin.openDatabase({
 		name : 'stuxpair'
 	});
 	var name = "";
-	
-	//if (stats.name === "awiefh") {
-		name = prompt('Name your little monster :p');
-	//}
-	db.transaction(updateName, onQueryError);
+
 	db.transaction(queryDB, onQueryError);
+	if (stats.name == "awiefh") {
+		name = prompt('Name your little monster :p');
+	}
+	db.transaction(updateName, onQueryError);
 
 	function queryDB(tx) {
 		tx.executeSql('SELECT * FROM stuxpet;', [], querySuccess, onQueryError);
@@ -29,17 +29,16 @@ function initDB() {
 	}
 
 	function updateName(tx) {
-		var query = 'UPDATE stuxpet SET name = \'' + name + '\' WHERE name = \'awiefh\';';
-		console.log(query);
-		tx.executeSql(query, [], nameSuccess, onQueryError);
+		var query = 'UPDATE stuxpet SET name = ? where name = \'awiefh\';';
+		tx.executeSql(query, [ name ], nameSuccess, onQueryError);
 	}
 
 	function nameSuccess(tx, results) {
-		console.log("pet named as " + results.rows.item(0)._id);
+		console.log("named pet " + stats.name);
 	}
 
 	function onQueryError(error) {
-		console.log("Error processing SQL: " + JSON.stringify(error));
+		console.log("Error processing SQL: " + JSON.stringify(error.message) + JSON.stringify(error.result));
 	}
 
 }
