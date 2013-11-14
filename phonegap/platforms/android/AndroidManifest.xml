@@ -19,12 +19,13 @@
         android:xlargeScreens="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="android.permission.NFC" />
 
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="false" />
- 
+
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -54,4 +55,5 @@
             <intent-filter />
         </activity>
     </application>
+
 </manifest>
