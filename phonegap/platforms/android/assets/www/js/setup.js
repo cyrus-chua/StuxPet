@@ -68,8 +68,7 @@ function setup() {
 
 		if (sliding == 2) {
 			var touchPixelRatio = 1 / 5; // 5x scrolling speed
-			var endPixelOffset = startPixelOffset + deltaSlide
-					/ touchPixelRatio;
+			var endPixelOffset = startPixelOffset + deltaSlide / touchPixelRatio;
 			if (endPixelOffset < 0
 					&& endPixelOffset > doorCount * -$('body').width())
 				pixelOffset = endPixelOffset;
