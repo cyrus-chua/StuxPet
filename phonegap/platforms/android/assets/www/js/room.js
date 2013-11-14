@@ -62,6 +62,6 @@ function onDeviceReady() {
 }
 
 function returnToDoor() {
-	navigator.splashscreen.show();
+	//navigator.splashscreen.show();
 	document.location.href = "index.html?room=" + currentRoom.num;
 }
