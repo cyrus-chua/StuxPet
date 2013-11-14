@@ -60,15 +60,55 @@ function onDeviceReady() {
 		break;
 	case "4":
 		for (var i=0; i<stats.shit && i < 5; i++){
-			$('.dabians').append('<div class="dabian"></div>');
+			$('.dabians').append('<div id="db'+i+'" class="dabian"></div>');
 		}
 		
-		$('.dabian').on('mousedown touchstart', slideStart);
-		$('.dabian').on('mouseup touchend', slideEnd);
-		$('.dabian').on('mousemove touchmove', slide);
+		$('.dabian').on('touchstart', dbStart);
+		$('.dabian').on('touchend', dbStop);
+		$('.dabian').on('touchmove', dbSlide);
 		
-		$('.dabian').css('transform',
-				'translate3d(' + pixelOffset + 'px,0,0)').removeClass();
+		var sliding = startPageX = startPageY = startPixelOffset = pixelOffset = 0;
+		var id="db";
+		function dbStart(event) {
+			id = $(this).attr('id');
+			if (event.originalEvent.touches)
+				event = event.originalEvent.touches[0];
+			if (sliding == 0) {
+				sliding = 1;
+				startPageX = event.pageX;
+				startPageY = event.pageY;
+			}
+		}
+		
+		function dbStop(event) {
+			event.preventDefault();
+			if (event.originalEvent.touches)
+				event = event.originalEvent.touches[0];
+			var deltaSlide = event.pageX - startPageX;
+
+			if (sliding == 1 && Math.abs(deltaSlide) > 2) {
+				sliding = 2;
+				startPixelOffset = pixelOffset;
+			}
+
+			if (sliding == 2) {
+				var touchPixelRatio = 1 / 5; // 5x scrolling speed
+				var endPixelOffset = startPixelOffset + deltaSlide / touchPixelRatio;
+				if (endPixelOffset < 0
+						&& endPixelOffset > doorCount * -$('body').width())
+					pixelOffset = endPixelOffset;
+				$('#doors').css('transform',
+						'translate3d(' + pixelOffset + 'px,0,0)').removeClass();
+			}
+		}
+		
+		function dbSlide(event){
+			
+		}
+		
+		
+		//$('.dabian').css('transform',
+			//	'translate3d(' + pixelOffset + 'px,0,0)').removeClass();
 		break;
 	}
 	
