@@ -40,7 +40,7 @@ function setup() {
 	setTimeout(function() {
 		$('#doors').addClass('animate').css('transform',
 				'translate3d(' + pixelOffset + 'px,0,0)');
-	}, 1000);
+	}, 100);
 
 	$('html').on('mousedown touchstart', slideStart);
 	$('html').on('mouseup touchend', slideEnd);
@@ -101,8 +101,8 @@ function setup() {
 				openDoor(num, seq + 1);
 			}, 500);
 		} else {
+			navigator.splashscreen.show();
 			setTimeout(function() {
-				navigator.splashscreen.show();
 				document.location.href = "room" + num + ".html";
 			}, 300);
 		}

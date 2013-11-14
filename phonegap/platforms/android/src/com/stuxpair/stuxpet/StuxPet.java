@@ -41,7 +41,7 @@ public class StuxPet extends DroidGap {
 		checkPet();
 		super.setIntegerProperty("splashscreen", R.drawable.splash);
 		// Set by <content src="index.html" /> in config.xml
-		super.loadUrl(Config.getStartUrl(), 2000);
+		super.loadUrl(Config.getStartUrl(), 3000);
 		super.setIntegerProperty("splashscreen", R.drawable.splash2);
 	}
 
