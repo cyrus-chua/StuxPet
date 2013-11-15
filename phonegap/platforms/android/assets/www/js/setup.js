@@ -106,10 +106,7 @@ function setup() {
 		} else {
 			navigator.splashscreen.show();
 			setTimeout(function() {
-				if (num==3)
-					document.location.href = "quickmatch/index.html";
-				else
-					document.location.href = "room" + num + ".html";
+				document.location.href = "room" + num + ".html";
 			}, 300);
 		}
 	}

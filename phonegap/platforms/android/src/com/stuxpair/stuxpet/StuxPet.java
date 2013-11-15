@@ -27,7 +27,10 @@ import org.apache.cordova.DroidGap;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 public class StuxPet extends DroidGap {
@@ -50,7 +53,9 @@ public class StuxPet extends DroidGap {
 		if (!petData.hasPet()) {
 			setNames();
 			SharedPreferences species_names = getSharedPreferences("names", 0);
-			String names[] = species_names.getString(StuxPetDBHelper.TYPE_BABY, "null").split(",");
+			String types[] = {"baby", "teen1", "teen2", "athlete", "otaku", "socialite"};
+			String type = types[(int)(Math.random() * types.length)];
+			String names[] = species_names.getString(type, "null").split(",");
 			petData.insertPet(names[(int) (Math.random() * names.length)],
 					StuxPetDBHelper.TYPE_BABY, Calendar.getInstance()
 							.getTimeInMillis());
@@ -86,6 +91,5 @@ public class StuxPet extends DroidGap {
 				StuxPetDBHelper.TYPE_SOCIALITE,
 				"socialite,clubber,player,social animal,suave,gentleman,playboy,well-connected,businessman,extrovert");
 		editor.commit();
-	}	
-
+	}
 }
