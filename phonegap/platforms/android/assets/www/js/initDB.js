@@ -51,7 +51,6 @@ function initDB() {
 						+ " (1)rows");
 			}, function(error) {
 				console.log("updateStatsError: " + error.message);
-<<<<<<< HEAD
 			});
 		}, onQueryError);
 
@@ -95,11 +94,6 @@ function initDB() {
 	 	});
 	 		}, onQueryError);
 		}
-=======
-			});
-		}, onQueryError);
-
-	}
 
 	window.addStats = function(statsName) {
 		db.transaction(function(tx) {
@@ -123,5 +117,4 @@ function initDB() {
 			});
 		}, onQueryError);
 	}
->>>>>>> 6ef210c475a151d53440e29f421902178bfb3735
 }
