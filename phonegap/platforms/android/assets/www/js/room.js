@@ -79,10 +79,12 @@ function onDeviceReady() {
 		for ( var i = 0; i < stats.shit && i < 5; i++) {
 			$('.dabians').append('<div id="db' + i + '" class="dabian"></div>');
 		}
-		$('.dabians').on('touchstart'){
+		$('#room4').append('Tap to clear shit');
+		$('body').on('touchstart', function(){
 			$(this).off('touchstart')
 			$('.dabians').hide();
-		}
+			updateShit();
+		});
 		break;
 	case "6":
 		$('#room6').append('<br /><br />Bring your device <br /> close to your friend\'s. <br /><br /> Then, tap to send <br /><b>' +stats.name+'</b>');  

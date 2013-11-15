@@ -73,9 +73,24 @@ function initDB() {
 					console.log("addStats: " + error.message);
 				})
 			}, 
-			function(error) {
+				function(error) {
 				console.log("addStats: " + error.message);
 			});
 		}, onQueryError);
 	}
+	
+	window.updateShit = function(statsName) {
+		db.transaction(function(tx) {
+		var query = 'UPDATE stuxpet SET ' + statsName
+					+ ' = 0 where social <> -1;';
+		tx.executeSql(query, [], function(tx, results) {
+	 				console.log(statsName + " updated " + results.rowsAffected
+	 						+ " (1)rows");
+		},
+		function(error){
+				console.log("updateStatsError: " + error.message);
+	 	});
+	 		}, onQueryError);
+		}
+	
 }

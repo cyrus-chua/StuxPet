@@ -85,26 +85,26 @@ public class StatsTrackerService extends IntentService {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		// Time to add alarm
-		calendar.add(Calendar.MINUTE, 2);
+		calendar.add(Calendar.HOUR, 2);
 	
-		setAlarm(pendingIntent, calendar.getTimeInMillis(), 2 * 60 * 1000);
+		setAlarm(pendingIntent, calendar.getTimeInMillis(), 2 * 60 * 60 * 1000);
 	}
 
 	public void handleHunger() {
 		Calendar calendar = Calendar.getInstance();
-		int hour = calendar.get(Calendar.MINUTE);
+		int hour = calendar.get(Calendar.HOUR);
 		if (hour < 9)
-			calendar.set(Calendar.MINUTE, 9);
-		else if (hour < 30)
-			calendar.set(Calendar.MINUTE, 30);
-		else if (hour < 45)
-			calendar.set(Calendar.MINUTE, 45);
+			calendar.set(Calendar.HOUR, 9);
+		else if (hour < 12)
+			calendar.set(Calendar.HOUR, 12);
+		else if (hour < 19)
+			calendar.set(Calendar.MINUTE, 19);
 		else {
 			calendar.add(Calendar.HOUR, 1);
 			calendar.set(Calendar.MINUTE, 9);
 		}
 
-		calendar.set(Calendar.SECOND, 1);
+		calendar.set(Calendar.MINUTE, 1);
 
 		Intent hunger = new Intent(this, StatsReceiver.class);
 		hunger.putExtra("action", MINUS_HUNGER);
@@ -120,9 +120,9 @@ public class StatsTrackerService extends IntentService {
 				happy, PendingIntent.FLAG_UPDATE_CURRENT);
 		Calendar calendar = Calendar.getInstance();
 		// Time to add alarm
-		calendar.add(Calendar.MINUTE, 2);
+		calendar.add(Calendar.HOUR, 2);
 
-		setAlarm(pendingIntent, calendar.getTimeInMillis(), 2 *60 * 1000);
+		setAlarm(pendingIntent, calendar.getTimeInMillis(), 2 *60 *60* 1000);
 	}
 	
 	public void handleShit() {
@@ -133,9 +133,9 @@ public class StatsTrackerService extends IntentService {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		// Time to add alarm
-		calendar.add(Calendar.MINUTE, 4);
+		calendar.add(Calendar.HOUR, 4);
 	
-		setAlarm(pendingIntent, calendar.getTimeInMillis(), 4 * 60 * 1000);
+		setAlarm(pendingIntent, calendar.getTimeInMillis(), 4 * 60 * 60 * 1000);
 	}
 
 	public void setAlarm(PendingIntent pendingIntent, long time, long recurrTime) {
