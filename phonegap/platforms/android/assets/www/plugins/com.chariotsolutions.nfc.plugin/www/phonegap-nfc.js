@@ -93,7 +93,7 @@ var ndef = {
      * Helper that creates an NDEF record containing plain text.
      *
      * @text String of text to encode
-     * @languageCode ISO/IANA language code. Examples: “fi”, “en-US”, “fr- CA”, “jp”. (optional)
+     * @languageCode ISO/IANA language code. Examples: â€œfiâ€�, â€œen-USâ€�, â€œfr- CAâ€�, â€œjpâ€�. (optional)
      * @id byte[] (optional)
      */
     textRecord: function (text, languageCode, id) {

@@ -33,8 +33,8 @@ var app = {
 	listenMessage : function() {
 		nfc.addNdefListener(function(nfcEvent) {
 			var tag = nfcEvent.tag, ndefMessage = tag.ndefMessage;
-
 			alert(nfc.bytesToString(ndefMessage[0].payload));
+			addFriend(nfc.bytesToString(ndefMessage[0].payload));
 		}, function() { // success callback
 		}, function(error) { // error callback
 			alert("Error adding NDEF listener " + JSON.stringify(error));

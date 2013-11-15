@@ -38,7 +38,7 @@ function onDeviceReady() {
 	case "2":
 		$('#bread, #cake, #vitamin').on(
 				'touchstart',
-				function(event) {
+				function() {
 					$(this).off('touchstart');
 					$(this).css('background-color', 'white');
 					var id = $(this).attr('id');
@@ -70,7 +70,7 @@ function onDeviceReady() {
 				});
 		break;
 	case "3":
-		$("#pet").on('click', function() {
+		$("#pet").on('touchstart', function() {
 			document.location.href = "quickmatch/index.html";
 		});
 		addStats("intel");
@@ -79,9 +79,33 @@ function onDeviceReady() {
 		for ( var i = 0; i < stats.shit && i < 5; i++) {
 			$('.dabians').append('<div id="db' + i + '" class="dabian"></div>');
 		}
+		$('#room4').append('<br /><br />Tap to clear shit!<br />');
+		$('body').on('touchstart', function() {
+			$(this).off('touchstart');
+			$('.dabians').hide();
+			window.updateShit('shit');
+		});
 		break;
 	case "6":
-		$('#room6').append('<br /><br />Bring your device <br /> close to your friend\'s. <br /><br /> Then, tap to send <br /><b>' +stats.name+'</b>');  
+		$('#room6')
+				.append(
+						'<br /><br />Bring your device <br /> close to your friend\'s. <br /><br /> Then, tap to send <br /><b>'
+								+ stats.name + '</b>');
+		getFriends();
+		for ( var i = 0; i < friends.length; i++) {
+			$('#doors').append('<div id="friend' + i + ' class="room"></div>')
+			var birthday = new Date(Number(friends[i].birthday));
+			$('#friend' + i).append(
+					'&nbsp;&nbsp;name: ' + friends[i].name + '<br />');
+			$('#friend' + i).append(
+					'&nbsp;&nbsp;species_name: ' + friends[i].species
+							+ '<br />');
+			$('#friend' + i).append(
+					'&nbsp;&nbsp;birthday: ' + birthday.getDate() + '/'
+							+ Number(birthday.getMonth() + 1) + '/'
+							+ birthday.getFullYear() + '<br />');
+		}
+		break;
 	}
 
 }

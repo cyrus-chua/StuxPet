@@ -22,7 +22,7 @@ function checkPetStatus() {
 	$('.life' + stats.health).css('background', 'none');
 	$('.hunger' + stats.hunger).css('background', 'none');
 	$('.happy' + stats.happiness).css('background', 'none');
-	for (var i=0; i<stats.shit && i < 5; i++){
+	for ( var i = 0; i < stats.shit && i < 5; i++) {
 		$('#bars').append('<img src="img/dabian.png">');
 	}
 }
@@ -39,7 +39,7 @@ function setup() {
 	var i = document.location.href.search('room');
 	if (i > 0)
 		pixelOffset = document.location.href.substr(i + 5) * -$('body').width();
-	
+
 	setTimeout(function() {
 		$('#doors').addClass('animate').css('transform',
 				'translate3d(' + pixelOffset + 'px,0,0)');
@@ -71,7 +71,8 @@ function setup() {
 
 		if (sliding == 2) {
 			var touchPixelRatio = 1 / 5; // 5x scrolling speed
-			var endPixelOffset = startPixelOffset + deltaSlide / touchPixelRatio;
+			var endPixelOffset = startPixelOffset + deltaSlide
+					/ touchPixelRatio;
 			if (endPixelOffset < 0
 					&& endPixelOffset > doorCount * -$('body').width())
 				pixelOffset = endPixelOffset;

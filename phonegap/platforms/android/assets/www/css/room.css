@@ -18,11 +18,6 @@ body {
 	height: 100%;
 	white-space: nowrap;
 	font-size: 0;
-	-webkit-transform: translate3d(0, 0, 0);
-	-moz-transform: translate3d(0, 0, 0);
-	-ms-transform: translate3d(0, 0, 0);
-	-o-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
 }
 
 .room {
@@ -63,26 +58,27 @@ body {
 	-webkit-border-radius: 999px;
 	-moz-border-radius: 999px;
 	border-radius: 999px;
-	width: 80px; height:80px;
+	width: 80px;
+	height: 80px;
 	border: 1px solid white;
 	display: inline-block;
 }
 
 #bread {
 	background: url('../img/bread.png') no-repeat 40%;
-	background-size : 70%;
+	background-size: 70%;
 	margin-right: 20px;
 }
 
 #cake {
 	background: url('../img/cake.png') no-repeat 90%;
-	background-size : 90%;
+	background-size: 90%;
 	margin-right: 20px;
 }
 
 #vitamin {
 	background: url('../img/medicine.png') no-repeat 60%;
-	background-size : 70%;
+	background-size: 70%;
 }
 
 #room3 {
@@ -91,20 +87,26 @@ body {
 
 #room4 {
 	background: url('../img/UI_toilet.png') no-repeat;
+	font-family: hermit;
+	color: white;
+	font-size: 20px;
+	text-align: center;
 }
 
-.dabians{
-	width:100%; height:20%;
+.dabians {
+	width: 100%;
+	height: 20%;
 	top: 80%;
 	position: absolute;
-	z-index : 2;
-	white-space : nowrap;
+	z-index: 2;
+	white-space: nowrap;
 }
 
-.dabian{
-	width : 120px; height: 120px;
+.dabian {
+	width: 120px;
+	height: 120px;
 	background: url('../img/dabian.png') no-repeat;
-	background-size:80%;
+	background-size: 80%;
 	display: inline-block;
 }
 
@@ -113,6 +115,18 @@ body {
 }
 
 #room6 {
+	background: yellow;
+	font-family: hermit;
+	color: black;
+	font-size: 20px;
+	text-align: center;
+}
+
+.friends {
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+	background-size: 100% 100%;
 	background: yellow;
 	font-family: hermit;
 	color: black;
