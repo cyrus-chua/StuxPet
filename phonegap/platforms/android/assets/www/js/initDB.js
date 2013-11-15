@@ -51,6 +51,7 @@ function initDB() {
 						+ " (1)rows");
 			}, function(error) {
 				console.log("updateStatsError: " + error.message);
+<<<<<<< HEAD
 			});
 		}, onQueryError);
 
@@ -94,4 +95,33 @@ function initDB() {
 	 	});
 	 		}, onQueryError);
 		}
+=======
+			});
+		}, onQueryError);
+
+	}
+
+	window.addStats = function(statsName) {
+		db.transaction(function(tx) {
+			var query = 'Select ' + statsName
+					+ ' FROM stuxpet where birthday IS NOT NULL;';
+			tx.executeSql(query, [], function(tx, results) {
+				console.log(statsName + " updated " + results.rowsAffected + " (1)rows");
+				for (var key in results.rows.item(0))
+					var value = results.rows.item(0)[key];
+				query = 'UPDATE stuxpet SET ' + statsName
+				+ ' = ? where birthday IS NOT NULL;';
+				tx.executeSql(query, [Number(value+1)], function(tx, results){
+					console.log(statsName + " updated " + results.rowsAffected + " (1)rows");
+				},
+				function(error) {
+					console.log("addStats: " + error.message);
+				})
+			}, 
+			function(error) {
+				console.log("addStats: " + error.message);
+			});
+		}, onQueryError);
+	}
+>>>>>>> 6ef210c475a151d53440e29f421902178bfb3735
 }
