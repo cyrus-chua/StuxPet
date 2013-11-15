@@ -57,7 +57,7 @@ public class StuxPet extends DroidGap {
 			String type = types[(int)(Math.random() * types.length)];
 			String names[] = species_names.getString(type, "null").split(",");
 			petData.insertPet(names[(int) (Math.random() * names.length)],
-					StuxPetDBHelper.TYPE_BABY, Calendar.getInstance()
+					type, Calendar.getInstance()
 							.getTimeInMillis());
 			Intent intent = new Intent(this, StatsTrackerService.class);
 			startService(intent);

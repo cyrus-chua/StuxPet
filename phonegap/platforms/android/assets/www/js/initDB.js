@@ -73,11 +73,13 @@ function initDB() {
 					console.log("addStats: " + error.message);
 				})
 			}, 
-				function(error) {
+			function(error) {
+
 				console.log("addStats: " + error.message);
 			});
 		}, onQueryError);
 	}
+
 	
 	window.updateShit = function(statsName) {
 		db.transaction(function(tx) {
@@ -92,5 +94,4 @@ function initDB() {
 	 	});
 	 		}, onQueryError);
 		}
-	
 }
