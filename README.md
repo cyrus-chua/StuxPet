@@ -1,4 +1,4 @@
 StuxPet
 =======
 
-Android Game (backup)
+Virtual Pet Game app for Android
